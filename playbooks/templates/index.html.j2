@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+      body, div {
+        margin: 0 auto;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        padding: 10px 10px;
+      }
+      #json {
+        text-align: left;
+        font-size: large;
+        background-color: #eee;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    </style>
+    <title>Ansible WebApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <h1>Hello Ansible</h1>
+    <p>This web page was deployed by an Ansible playbook</p>
+    <div style="width: 200px; height: auto; background-color: #92c9b1;">
+      The inventory hostname for this server is <b>{{ inventory_hostname }}</b>.
+    </div>
+    <div>
+      <button onclick="queryElasticsearch()">Query Elasticsearch</button>
+    </div>
+    <pre id="json"></pre>
+  </body>
+  <script>
+    function queryElasticsearch(){
+      {% set movie_id = 1 if (query_first_movie) else 2 %}
+      {% for host in groups['databases'] %}
+        const http_request = new XMLHttpRequest();
+        const url="http://{{ hostvars[host]['ansible_host'] }}:9200/db_index/movies/{{ movie_id }}";
+        http_request.onreadystatechange = (e) => {
+          let movie = http_request.response
+          document.getElementById("json").innerText = JSON.stringify(movie, null, 2);
+        }
+        http_request.responseType = "json";
+        http_request.open("GET", url);
+        http_request.setRequestHeader("Content-Type", "application/json");
+        http_request.send();
+      {% endfor %}
+    }
+  </script>
+
+</html>

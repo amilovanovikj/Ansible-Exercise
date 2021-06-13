@@ -1,0 +1,14 @@
+---
+- name: Uninstall Apache and remove html file from webservers
+  hosts: webservers
+
+  tasks:
+  - name: Remove html file
+    file:
+      path: /var/www/html/index.html
+      state: absent
+  - name: Uninstall Apache on the server
+    yum:
+      name: httpd
+      state: absent
+    become: true

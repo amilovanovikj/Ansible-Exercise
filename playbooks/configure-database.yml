@@ -1,0 +1,7 @@
+# playbook.yml
+---
+- name: Deploy the elasticsearch database
+  hosts: databases
+  roles:
+    - name: java
+    - name: elasticsearch

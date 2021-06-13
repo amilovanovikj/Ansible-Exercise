@@ -1,0 +1,4 @@
+# variables for the centos33 host
+
+ansible_host: 192.168.50.33
+ansible_private_key_file: ./.vagrant/machines/centos33/virtualbox/private_key

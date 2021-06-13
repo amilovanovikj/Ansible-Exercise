@@ -1,0 +1,9 @@
+---
+- name: Check if everything is fine with VMs
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Show debug message
+      debug:
+        msg: Hello from {{ ansible_host }}

@@ -1,0 +1,22 @@
+---
+- name: Deploy static web page to server
+  hosts: webservers
+
+  tasks:
+  - name: Install Apache on the server
+    yum:
+      name: httpd
+      state: latest
+    become: true
+  - name: Copy html page to the server
+    template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+      mode: 0644
+    notify: Restart Apache
+  
+  handlers:
+  - name: Restart Apache
+    service:
+      name: httpd
+      state: restarted

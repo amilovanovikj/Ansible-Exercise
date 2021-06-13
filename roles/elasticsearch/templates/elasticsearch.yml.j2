@@ -1,0 +1,21 @@
+# {{ ansible_managed }}
+cluster.name: {{ elasticsearch_cluster_name }}
+
+network.bind_host: [ _local_, {{ ansible_host }} ]
+network.host: 0.0.0.0
+
+discovery.seed_hosts: []
+
+http.port: 9200
+http.cors.enabled : true
+http.cors.allow-origin : "*"
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+
+# discovery.zen.ping.unicast.hosts: {{ groups['databases'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | list | to_json }}
+
+# discovery.zen.minimum_master_nodes: 2
+
+node.master: true
+node.data: true
+node.ingest: true

@@ -1,0 +1,5 @@
+[webservers]
+centos[31:32]
+
+[databases]
+centos33

@@ -1,0 +1,5 @@
+# variables for the centos32 host
+
+ansible_host: 192.168.50.32
+ansible_private_key_file: ./.vagrant/machines/centos32/virtualbox/private_key
+query_first_movie: false

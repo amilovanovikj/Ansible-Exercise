@@ -1,0 +1,5 @@
+# variables for the centos31 host
+
+ansible_host: 192.168.50.31
+ansible_private_key_file: ./.vagrant/machines/centos31/virtualbox/private_key
+query_first_movie: true
